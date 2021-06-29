@@ -1,7 +1,7 @@
 const newsCtrollr = {};
 
 newsCtrollr.renderNewsForm = (req, res) =>{
-    res.send('News add');
+    res.render('news/new-news');
 };
 
 newsCtrollr.createNewNews = (req, res) =>{

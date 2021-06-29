@@ -11,10 +11,13 @@ const {
 
 // New news
 router.get('/news/add', renderNewsForm);
-router.post('/news/add', createNewNews);
+router.post('/news/new-news', createNewNews);
+
+// Get All Versions
+router.get('/news', renderNews);
 
 // Get All News
-router.get('/news', renderNews);
+router.get('/news/');
 
 // Edit News
 router.get('/news/edit/:id', renderEditForm);
