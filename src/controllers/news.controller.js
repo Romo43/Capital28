@@ -1,14 +1,14 @@
 const newsCtrollr = {};
 
-newsCtrollr.renderNewsForm = (req, res) =>{
+newsCtrollr.renderVersionForm = (req, res) =>{
     res.render('news/new-news');
 };
 
-newsCtrollr.createNewNews = (req, res) =>{
+newsCtrollr.createNewVersion = (req, res) =>{
     res.send('New news');
 };
 
-newsCtrollr.renderNews = (req, res) =>{
+newsCtrollr.renderVersion = (req, res) =>{
     res.send('render news');
 };
 
@@ -16,11 +16,11 @@ newsCtrollr.renderEditForm = (req, res) =>{
     res.send('edit news');
 };
 
-newsCtrollr.updateNews = (req, res) =>{
+newsCtrollr.updateVersion = (req, res) =>{
     res.send('Update news');
 };
 
-newsCtrollr.deleteNews = (req, res) =>{
+newsCtrollr.deleteVersion = (req, res) =>{
     res.send('Deleting news');
 };
 module.exports = newsCtrollr;
