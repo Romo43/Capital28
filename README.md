@@ -1,4 +1,10 @@
-# What's new API
+<p align="center">
+  <a href="https://github.com/Romo43/Capital28.github.io">
+    <img src="src/public/img/logo.png" width="45%" height="45%" alt="Logo">
+  </a>
+  <h1 align="center">API What's New</h1>
+</p>
+
 ## Table of contents
 * [General info](#general-information)
 * [Technologies](#technologies)
@@ -28,7 +34,7 @@ To run this project, install it locally using npm:
 ```
 $ cd ../lorem
 $ npm install
-$ npm start
+$ npm run start
 ```
 ## Authors
 * Luis Fernando Lopez Romo - Backend - [Fernando Romo](https://github.com/Romo43)
