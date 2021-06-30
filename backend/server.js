@@ -1,7 +1,11 @@
-const express = require('express');
-const exphbs = require('express-handlebars');
-const path = require('path');
-const morgan = require('morgan');
+import express from "express";
+import exphbs from "express-handlebars";
+import path from "path";
+import morgan from "morgan";
+
+import indexRoutes from "./routes/index.routes";
+import notesRoutes from "./routes/notes.routes";
+import userRoutes from "./routes/users.routes";
 
 // Initializations
 const app = express();
@@ -24,10 +28,12 @@ app.use(express.urlencoded({extended: false}));
 // Global Variables
 
 // Routes
-app.use(require('./routes/index.routes'));
-app.use(require('./routes/news.routes'));
+app.use(indexRoutes);
+app.use(notesRoutes);
+app.use(userRoutes);
+import "./config/passport";
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
-module.exports = app;
+export default app;

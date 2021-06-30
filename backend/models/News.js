@@ -1,15 +1,15 @@
-const {Schema, model} = requiere("mongoose");
+import {Schema, model} from "mongoose";
 
 const NewsSchema = new Schema({
     status: Boolean,
     version: String,
-    publishedat: Date,
+    publishedAt: Date,
     news:[{
         title: String,
         description: String,
-        URLtoside:String,
-        URLtomedia: String,
-        badge: [String]
+        urlToSide:String,
+        urlToMedia: String,
+        tags: [String]
     }]
 }, {
     timestamps: true
