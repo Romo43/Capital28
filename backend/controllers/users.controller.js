@@ -9,7 +9,7 @@ export const singup = async (req, res) => {
     const newUser = new User({ name, email, password });
     newUser.password = await newUser.encryptPassword(password);
     await newUser.save();
-    res.redirect("/users/signin");
+    res.json(newUser);
 };
 
 export const renderSigninForm = (req, res) => res.render("users/signin");
@@ -22,6 +22,4 @@ export const signin = passport.authenticate("local", {
 
 export const logout = (req, res) => {
     req.logout();
-    req.flash("success_msg", "You are logged out now.");
-    res.redirect("/users/signin");
 };
