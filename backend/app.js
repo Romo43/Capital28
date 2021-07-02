@@ -5,8 +5,6 @@ const cors = require('cors');
 
 // Initializations
 const app = express();
-
-// Settings
 const port = process.env.PORT || 5000;
 
 // Middleware
@@ -22,5 +20,8 @@ mongoose.connect(process.env.DB_URI, {
     useCreateIndex: true
 }).then(() => console.log('Connected to the database')).catch(err => console.log(err));
 
+// Routes
+app.use('/api/news', require('./routes/routes'))
+
 // Start Server
-app.listen(port, () => console.log('Server on port: ${port}'));
+app.listen(port, () => console.log(`Server on port:${port}`));
