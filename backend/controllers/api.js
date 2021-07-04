@@ -1,7 +1,7 @@
 const News = require('../models/News');
 
 module.exports = class API {
-    // fetch all versions
+    // Fetch all versions
     static async fetchAllVersions(req, res){
         try {
             const versions = await News.find();
@@ -10,7 +10,7 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
-    // fetch version by id
+    // Fetch version by id
     static async fetchVersionByID(req, res){
         const id = req.params.id;
         try {
@@ -22,11 +22,23 @@ module.exports = class API {
     }
     // Create version
     static async createVersion(req, res){
-        res.send('Create Version');
+        const version = req.body;
+        try {
+            await News.create(version);
+            res.status(200).json({ message: 'Version created successfully'});
+        } catch (err) {
+            res.status(400).json({ message: err.message});
+        }
     }
     // Update version
     static async updateVersion(req, res){
-        res.send('Update Version');
+        const id = req.params.id;
+        const version = req.body.version;
+        try {
+            await News.findByIdAndUpdate(id, );
+        } catch (err) {
+            
+        }
     }
     // Delete version
     static async deleteVersion(req, res){
