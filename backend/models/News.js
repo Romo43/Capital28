@@ -1,15 +1,21 @@
 const mongoose = require('mongoose');
 const newsSchema = mongoose.Schema(
     {
-        status: Boolean,
+        status: {
+            type: Boolean,
+            default: false
+        },
         version: String,
-        publishedAt: Date,
+        publishedAt: {
+            type:Date, 
+            default: null
+        },
         news:[{
             title: String,
             description: String,
             URL: String,
             URLtoMedia: String,
-            tags: [String]
+            tags: {enum:['Free', 'Premium', 'Ultimate']}
         }]
     });
 

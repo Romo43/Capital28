@@ -33,15 +33,16 @@ module.exports = class API {
     // Update version
     static async updateVersion(req, res){
         const id = req.params.id;
-        const version = req.body.version;
+        const version = req.body;
         try {
-            await News.findByIdAndUpdate(id, );
+            await News.findByIdAndUpdate(id, version);
+            res.status(200).json({ message: 'Version updated successfully'});
         } catch (err) {
-            
+            res.status(404).json({ message: err.message});
         }
     }
     // Delete version
     static async deleteVersion(req, res){
         res.send('Delete Version');
-    }
+    } 
 };

@@ -5,7 +5,7 @@ const API = require('../controllers/api');
 router.get('/admin', API.fetchAllVersions);
 router.get('/admin/:id', API.fetchVersionByID);
 router.post('/admin', API.createVersion);
-router.patch('/admin/:id', API.updateVersion);
+router.put('/admin/:id', API.updateVersion);
 router.delete('/admin/:id', API.deleteVersion);
 
 module.exports = router;
