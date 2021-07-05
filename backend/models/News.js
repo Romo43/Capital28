@@ -5,9 +5,9 @@ const newsSchema = mongoose.Schema(
             type: Boolean,
             default: false
         },
-        version: String,
+        version: {type: String, unique: true},
         publishedAt: {
-            type:Date, 
+            type: Date, 
             default: null
         },
         news:[{
@@ -15,8 +15,10 @@ const newsSchema = mongoose.Schema(
             description: String,
             URL: String,
             URLtoMedia: String,
-            tags: {enum:['Free', 'Premium', 'Ultimate']}
+            tags: [String]
         }]
+    },{
+        timestamps: true,
     });
 
 module.exports = mongoose.model('news', newsSchema);

@@ -1,6 +1,9 @@
 const News = require('../models/News');
 
 module.exports = class API {
+
+    // Versions
+
     // Fetch all versions
     static async fetchAllVersions(req, res){
         try {
@@ -35,7 +38,7 @@ module.exports = class API {
         const id = req.params.id;
         const version = req.body;
         try {
-            await News.findByIdAndUpdate(id, version);
+            await News.findOneAndUpdate(id, version);
             res.status(200).json({ message: 'Version updated successfully'});
         } catch (err) {
             res.status(404).json({ message: err.message});
@@ -43,6 +46,35 @@ module.exports = class API {
     }
     // Delete version
     static async deleteVersion(req, res){
-        res.send('Delete Version');
+        const id = req.params.id;
+        try {
+            await News.findByIdAndRemove(id);
+            res.status(200).json({ message: 'Version deleted successfully'});
+        } catch (err) {
+            res.status(404).json({ message: err.message});
+        }
     } 
+
+
+    // News
+
+    // Fetch news by id
+    static async fetchNewsByID(req, res){
+        res.send('News id');
+    }
+
+    // Push news
+    static async createNews(req, res){
+        res.send('push');
+    }
+
+    // Update news by id
+    static async updateNews(req, res){
+        res.send('News updated');
+    }
+
+    // Delete news
+    static async deleteNews(req, res){
+        res.send('pop');
+    }
 };
