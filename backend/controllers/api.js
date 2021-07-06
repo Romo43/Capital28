@@ -30,7 +30,7 @@ module.exports = class API {
             await News.create(version);
             res.status(200).json({ message: 'Version created successfully'});
         } catch (err) {
-            res.status(400).json({ message: err.message});
+            res.status(404).json({ message: err.message});
         }
     }
     // Update version
@@ -38,7 +38,7 @@ module.exports = class API {
         const id = req.params.id;
         const version = req.body;
         try {
-            await News.findOneAndUpdate(id, version);
+            await News.findByIdAndUpdate(id, version);
             res.status(200).json({ message: 'Version updated successfully'});
         } catch (err) {
             res.status(404).json({ message: err.message});
@@ -48,7 +48,7 @@ module.exports = class API {
     static async deleteVersion(req, res){
         const id = req.params.id;
         try {
-            await News.findByIdAndRemove(id);
+            await News.findByIdAndDelete(id);
             res.status(200).json({ message: 'Version deleted successfully'});
         } catch (err) {
             res.status(404).json({ message: err.message});
@@ -69,17 +69,14 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
-
     // Push news
     static async createNews(req, res){
         res.send('push');
     }
-
     // Update news by id
     static async updateNews(req, res){
         res.send('News updated');
     }
-
     // Delete news
     static async deleteNews(req, res){
         res.send('pop');

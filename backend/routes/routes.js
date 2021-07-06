@@ -5,9 +5,9 @@ const API = require('../controllers/api');
 // Versions
 router.get('/admin/versions', API.fetchAllVersions);
 router.get('/admin/version/:id', API.fetchVersionByID);
-router.post('/admin/create', API.createVersion);
-router.put('/admin/update/:id', API.updateVersion);
-router.delete('/admin/delete/:id', API.deleteVersion);
+router.post('/admin/version/create', API.createVersion);
+router.put('/admin/version/update/:id', API.updateVersion);
+router.delete('/admin/version/delete/:id', API.deleteVersion);
 
 // News
 router.get('/admin/:version/news/:id', API.fetchNewsByID);
