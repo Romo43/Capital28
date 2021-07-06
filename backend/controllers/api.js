@@ -60,7 +60,14 @@ module.exports = class API {
 
     // Fetch news by id
     static async fetchNewsByID(req, res){
-        res.send('News id');
+        const version = req.params.version;
+        const id = req.params.id;
+        try {
+            const news = await News.findOneAndUpdate(id);
+            res.status(200).json(version);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
     }
 
     // Push news
