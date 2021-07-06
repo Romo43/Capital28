@@ -3,11 +3,11 @@ const router = express.Router();
 const API = require('../controllers/api');
 
 // Versions
-router.get('/admin/versions', API.fetchAllVersions);
-router.get('/admin/version/:id', API.fetchVersionByID);
-router.post('/admin/version/create', API.createVersion);
-router.put('/admin/version/update/:id', API.updateVersion);
-router.delete('/admin/version/delete/:id', API.deleteVersion);
+router.get('/', API.fetchAllVersions);
+router.get('/:id', API.fetchVersionByID);
+router.post('/', API.createVersion);
+router.put('/:id', API.updateVersion);
+router.delete('/:id', API.deleteVersion);
 
 // News
 router.get('/admin/:version/news/:id', API.fetchNewsByID);

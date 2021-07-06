@@ -1,4 +1,5 @@
-const News = require('../models/News');
+const News = require('../models/posts');
+const { post } = require('../routes/routes');
 
 module.exports = class API {
 
