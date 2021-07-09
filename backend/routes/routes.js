@@ -2,16 +2,21 @@ const express = require('express');
 const router = express.Router();
 const API = require('../controllers/api');
 
+// Applications
+router.get('/', API.fetchAllApps);
+router.get('/:id', API.fetchAppByID);
+router.put('/:id', API.updateAppByID);
+
 // Versions
-router.get('/', API.fetchAllVersions);
-router.get('/:id', API.fetchVersionByID);
+router.get('/:app', API.fetchAllVersions);
+router.get('/:id', API.fetchVersion);
 router.post('/', API.createVersion);
 router.put('/:id', API.updateVersion);
 router.delete('/:id', API.deleteVersion);
 
 // News
-router.get('/admin/:version/news/:id', API.fetchNewsByID);
-router.put('/admin/:version/news/create/:id', API.createNews);
-router.put('/admin/:version/news/update/:id', API.updateNews);
-router.put('/admin/:version/news/delete/:id', API.deleteNews);
+router.get('/:version/:id', API.fetchNews);
+router.put('/:version/:id', API.createNews);
+router.put('/:version/:id', API.updateNews);
+router.put('/:version/:id', API.deleteNews);
 module.exports = router;

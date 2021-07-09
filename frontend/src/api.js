@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url = "/api/post";
+const url = "/api/news";
 
 export default class API{
     //para obtener todas las versiones
