@@ -8,11 +8,11 @@ router.get('/:id', API.fetchAppByID);
 router.put('/:id', API.updateAppByID);
 
 // Versions
-router.get('/:app', API.fetchAllVersions);
-router.get('/:id', API.fetchVersion);
-router.post('/', API.createVersion);
-router.put('/:id', API.updateVersion);
-router.delete('/:id', API.deleteVersion);
+router.get('/:id/:version', API.fetchAllVersions);
+router.get('/:version', API.fetchVersion);
+router.post('/:version', API.createVersion);
+router.put('/:version', API.updateVersion);
+router.delete('/:version', API.deleteVersion);
 
 // News
 router.get('/:version/:id', API.fetchNews);

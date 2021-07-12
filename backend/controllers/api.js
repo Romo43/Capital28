@@ -39,7 +39,16 @@ module.exports = class API {
 
     // Fetch all versions
     static async fetchAllVersions(req, res){
-        
+        //findById({ 'resume.educations._id': req.body.education_id}
+        const id = req.params.id;
+        const version = req.params.version;
+        try {
+            const dataversion = await News.find({"_id": id},{versions: {$elemMatch: {version:version}}});
+            res.status(200).json(dataversion);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+
     }
     // Fetch version by id
     static async fetchVersion(req, res){
