@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const newsSchema = mongoose.Schema(
     {
         app: String,
-        statusApp: Boolean,
+        statusApp: {
+            type: Boolean,
+            default: false
+        },
         versions:[{
+            _id: false,
             status: {
                 type: Boolean,
                 default: false
@@ -15,6 +19,7 @@ const newsSchema = mongoose.Schema(
                 default: null
             },
             news:[{
+                _id: false,
                 title: String,
                 description: String,
                 URL: String,
