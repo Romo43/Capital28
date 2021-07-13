@@ -7,7 +7,6 @@ const newsSchema = mongoose.Schema(
             default: false
         },
         versions:[{
-            _id: false,
             status: {
                 type: Boolean,
                 default: false
@@ -19,7 +18,6 @@ const newsSchema = mongoose.Schema(
                 default: null
             },
             news:[{
-                _id: false,
                 title: String,
                 description: String,
                 URL: String,

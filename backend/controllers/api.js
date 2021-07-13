@@ -85,9 +85,8 @@ module.exports = class API {
         // All news
         static async allNews(req, res){
             const id = req.params.id;
-            const version = req.params.version;
             try {
-                const news = await News.find({"_id": id},{versions: {$elemMatch: {version:version}}});
+                const news = await News.find({"versions._id":id});
                 res.status(200).json(news);
             } catch (err) {
                 res.status(404).json({ message: err.message });

@@ -8,14 +8,14 @@ router.get('/apps', API.allApps);
 router.put('/app/:id', API.updateAppByID);
 
 // Versions
-router.get('/versions/:id', API.allVersions);
-router.put('/version/:id', API.createVersion);
-router.put('/version/:id/:version', API.updateVersion);
-router.put('/version/:id/:version', API.deleteVersion);
+router.get('/version/:id', API.allVersions);
+router.put('/version/create/:id', API.createVersion);
+router.put('/version/update/:id/:id', API.updateVersion);
+router.put('/version/delete/:id/:id', API.deleteVersion);
 
 // News
-router.get('/news/:id/:version', API.allNews);
-router.put('/news/:id/:version', API.createNews);
-router.put('/news/:id/:version/:new', API.updateNews);
-router.put('/news/:id/:version/:new', API.deleteNews);
+router.get('/news/:id', API.allNews);
+router.put('/news/create/:id/:id', API.createNews);
+router.put('/news/update/:id/:id/:id', API.updateNews);
+router.put('/news/delete/:id/:id/:id', API.deleteNews);
 module.exports = router;
