@@ -5,16 +5,6 @@ module.exports = class API {
 
 
     // Apps
-        // create app
-        static async createApp(req, res){
-            const app = req.body;
-            try {
-                const createApp = await News.create(app);
-                res.status(200).json(createApp);
-            } catch (err) {
-                res.status(404).json( {message: err.message });
-            }
-        }
         //  All apps
         static async allApps(req, res){
             try {
@@ -24,13 +14,33 @@ module.exports = class API {
                 res.status(404).json({ message: err.message });
             }
         }
+        //  App
+        static async App(req, res){
+            const id = req.params.id;
+            try {
+                const app = await News.findById(id);
+                res.status(200).json(app);
+            } catch (err) {
+                res.status(404).json({ message: err.message });
+            }
+        }
+        // create app
+        static async createApp(req, res){
+            const app = req.body;
+            try {
+                const createApp = await News.create(app);
+                res.status(200).json(createApp);
+            } catch (err) {
+                res.status(404).json({ message: err.message });
+            }
+        }
         // Update status app by ID
         static async updateAppByID(req, res){
             const id = req.params.id;
             const statusApp = req.body;
             try {
-                await News.findByIdAndUpdate(id, statusApp);
-                res.status(200).json({ message: 'Status updated successfully'});
+                const app = await News.findByIdAndUpdate(id, statusApp);
+                res.status(200).json(app);
             } catch (err) {
                 res.status(404).json({ message: err.message });
             }
@@ -40,23 +50,13 @@ module.exports = class API {
 
 
     // Versions
-        // All versions
-        static async allVersions(req, res){
-            const id = req.params.id;
-            try {
-                const versions = await News.findById(id);
-                res.status(200).json(versions);
-            } catch (err) {
-                res.status(400).json({ message: err.message });
-            }
-        }
         // Create version
         static async createVersion(req, res){
             const id = req.params.id;
-            const {version, publishedAt } = req.body;
+            const { version, publishedAt } = req.body;
             try {
-                await News.findOneAndUpdate({"_id": id}, {$push:{versions:{ version: version, publishedAt: publishedAt}}});
-                res.status(200).json({message: 'Version created successfully'});
+                const data = await News.findOneAndUpdate({ "_id": id }, { $push: { versions: { version: version, publishedAt: publishedAt }}});
+                res.status(200).json(data);
             } catch (err) {
                 res.status(404).json({ message: err.message });
             }
@@ -64,44 +64,59 @@ module.exports = class API {
         // Update version
         static async updateVersion(req, res){
             const id = req.params.id;
-            const versionID = req.params.version;
-            const {version, status, publishedAt} = req.body;
+            const { version, status, publishedAt } = req.body;
             try {
-                await News.findOneAndUpdate({"_id":id, "versions.version":versionID}, {$set: {version: version, status: status, publishedAt: publishedAt}});
-                res.status(200).json({ message: 'Version updated successfully'});
+                const data = await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version, "versions.$.status": status, "versions.$.publishedAt": publishedAt }});
+                res.status(200).json(data);
             } catch (err) {
                 res.status(404).json({ message: err.message });
             }
         }
         // Delete version
         static async deleteVersion(req, res){
-            
+            const id = req.params.id;
+            try {
+                const data = await News.updateOne({ "versions._id": id }, { $pull: { versions: { "_id":id }}}, { new: true });
+                res.status(200).json(data);
+            } catch (err) {
+                res.status(404).json({ message: err.message });
+            }
         } 
 
 
 
 
     // News
-        // All news
-        static async allNews(req, res){
+        // Create news
+        static async createNews(req, res){
             const id = req.params.id;
+            const { title, description, URL, URLtoMedia, roles } = req.body;
             try {
-                const news = await News.find({"versions._id":id});
-                res.status(200).json(news);
+                const data = await News.findOneAndUpdate({"versions._id": id }, { $push:{ news: { title: title, description: description, URL: URL, URLtoMedia: URLtoMedia, roles:[roles] }}});
+                res.status(200).json(data);
             } catch (err) {
                 res.status(404).json({ message: err.message });
             }
         }
-        // Push news
-        static async createNews(req, res){
-            
-        }
-        // Update news by id
+        // Update news
         static async updateNews(req, res){
-            
+            const id = req.params.id;
+            const { title, description, URL, URLtoMedia, roles } = req.body;
+            try {
+                const data = await News.updateOne({ "news._id": id }, { $set: { "news.$.title": title, "news.$.description": description, "news.$.URL": URL, "news.$.URLtoMedia": URLtoMedia, "news.$.roles":[roles] }});
+                res.status(200).json(data);
+            } catch (err) {
+                res.status(404).json({ message: err.message });
+            }
         }
         // Delete news
         static async deleteNews(req, res){
-            
+            const id = req.params.id;
+            try {
+                const data = await News.updateOne({ "news._id": id }, { $pull: { news: { "_id": id }}}, { new: true });
+                res.status(200).json(data);
+            } catch (err) {
+                res.status(404).json({ message: err.message });
+            }
         }
 };
