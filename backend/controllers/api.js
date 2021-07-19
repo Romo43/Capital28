@@ -26,8 +26,13 @@ module.exports = class API {
         const id = req.params.id;
         const version = req.body;
         try {
-            const data = await News.findByIdAndUpdate(id, version);
-            res.status(200).json(data);
+            const versions = News.findOne({'_id': id}, {versions: version});
+            if(versions){
+                res.console('This version already exists');
+            }else{
+                const data = await News.findByIdAndUpdate(id, version);
+                res.status(200).json(data);
+            }
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -37,8 +42,13 @@ module.exports = class API {
         const id = req.params.id;
         const version = req.body;
         try {
-            const data = await News.findByIdAndUpdate(id, [version]);
-            res.status(200).json(data);
+            const versions = News.findOne({'_id': id}, {versions: version});
+            if(versions){
+                res.console('This version already exists');
+            }else{
+                const data = await News.findByIdAndUpdate(id, version);
+                res.status(200).json(data);
+            }
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -48,7 +58,7 @@ module.exports = class API {
         const id = req.params.id;
         const version = req.body;
         try {
-            const data = await News.findByIdAndUpdate(id, [version]);
+            const data = await News.findByIdAndUpdate(id, version);
             res.status(200).json(data);
         } catch (err) {
             res.status(404).json({ message: err.message });
