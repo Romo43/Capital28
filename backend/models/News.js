@@ -3,12 +3,17 @@ const newsSchema = mongoose.Schema(
     {
         app: String,
         currentVersion:{
-            version: String,
+            version: Number,
             status: Boolean
         },
-        versions:[String],
+        versions:[{
+            _id: false,
+            version: {
+                type: Number, unique: true
+            }
+        }],
         news:[{
-            version: String,
+            version: Number,
             title: String,
             description: String,
             URL: String,
