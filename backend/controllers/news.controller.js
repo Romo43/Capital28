@@ -20,50 +20,63 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
+
+
+
+
 // Versions
-    // Create version
+   // Find Version
+    static async findVersion(req, res){
+    const id = req.params.id;
+    const versionID = req.params.versionID;
+    try {
+        const data = await News.find({"_id": id},{versions: {$elemMatch: {_id: versionID}}});
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(404).json(data);
+    }
+}
+    // Create Version
     static async createVersion(req, res){
         const id = req.params.id;
-        const {version} = req.body;
+        const { version } = req.body;
         try {
             const data = await News.findOneAndUpdate({ "_id": id }, { $push: { versions: { version: version }}});
-            res.status(200).json({ message: "Version created successfully"});
-        } catch (err) {
-            res.status(404).json({ message: err.message });
-        }
-    }
-    // Update version
-    static async updateVersion(req, res){
-        const id = req.params.id;
-        const version = req.body;
-        try {
-            const versions = News.findOne({'_id': id}, {versions: version});
-            if(versions){
-                res.console('This version already exists');
-            }else{
-                const data = await News.findByIdAndUpdate(id, version);
-                res.status(200).json(data);
-            }
-        } catch (err) {
-            res.status(404).json({ message: err.message });
-        }
-    }
-    // Delete version
-    static async deleteVersion(req, res){
-        const id = req.params.id;
-        const version = req.body;
-        try {
-            const data = await News.findByIdAndUpdate(id, version);
             res.status(200).json(data);
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
     }
+    // Update Version
+    static async updateVersion(req, res){
+        const id = req.params.id;
+        const { version } = req.body;
+        try {
+            const data = await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version }});
+            res.status(200).json(data);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+    // Delete Version
+    static async deleteVersion(req, res){
+        const id = req.params.id;
+        try {
+            const data = await News.updateOne({ "versions._id": id }, { $pull: { versions: { "_id":id }}}, { new: true });
+            res.status(200).json(data);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
+        }
+    }
+
+
+
+
 // Current Version
     // Update current status app
     static async updateCurrentStatus(req, res){
         const id = req.params.id;
-        const status = req.body;
+        const { status } = req.body;
         try {
             const app = await News.findByIdAndUpdate(id, status);
             res.status(200).json(app);
@@ -74,7 +87,7 @@ module.exports = class API {
     // Update current version app
     static async updateCurrentVersion(req, res){
         const id = req.params.id;
-        const version = req.body;
+        const { version } = req.body;
         try {
             const app = await News.findByIdAndUpdate(id, version);
             res.status(200).json(app);
@@ -82,6 +95,10 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
+
+
+
+
 // News
     // Find News
     static async findNews(req, res){

@@ -26,12 +26,11 @@ Project is created with:
 * dotenv: ^10.0.0
 * passport: ^0.4.1
 * passport-local: ^1.0.0
-* bcryptjs: ^2.4.3
 * nodemon: ^2.0.7
 
 ### Frontend
-* vue.js: 
-* vuetify: 
+* vue: ^2.6.11
+* vuetify: ^2.4.0
 
 ## Setup
 To run this project, install it locally using npm:
@@ -39,14 +38,14 @@ To run this project, install it locally using npm:
 ### Backend
 ```
 $ cd backend
-$ npm run start
+$ npm run dev
 ```
 
 ### Frontend
 
 ```
 $ cd frontend
-$ npm run start
+$ npm run serve
 ```
 
 ## Authors

@@ -21,7 +21,8 @@ mongoose.connect(process.env.DB_URI, {
 }).then(() => console.log('Connected to the database')).catch(err => console.log(err));
 
 // Routes
-app.use('/capital28', require('./routes/routes'));
+app.use(require('./routes/news.route'));
+app.use(require('./routes/users.route'));
 
 // Start Server
 app.listen(port, () => console.log(`Server on port:${port}`));
