@@ -4,7 +4,7 @@ const API = require('../controllers/users.controller');
 
 // Users
 router.get('/users', API.allUsers);
-router.post('/user/create/:id', API.createUser);
+router.post('/user/create', API.createUser);
 router.delete('/user/delete/:id', API.deleteUser);
 
 module.exports = router;

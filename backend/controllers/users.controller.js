@@ -12,13 +12,14 @@ module.exports = class API {
     }
     // Create User
     static async createUser(req, res){
-        const { username, password } = req.body;
+        const { username, password, role } = req.body;
         try {
             const user = await User.findOne({username: username});
             if(user){
                 res.json({ message: "This User already exists" })
             } else{
-                await User.create(username, password);
+                const data = new User({ username, password, role });
+                await User.create(data);
                 res.status(200).json({ message: "User created successfully"});
             }
         } catch (err) {

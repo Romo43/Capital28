@@ -3,6 +3,7 @@ const userSchema = mongoose.Schema(
     {
         username: String,
         password: String,
+        role: String,
         date: { type: Date, default: Date.now }
     }
 );

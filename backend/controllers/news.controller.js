@@ -11,7 +11,7 @@ module.exports = class API {
         }
     }
     //  Find App
-    static async App(req, res){
+    static async findApp(req, res){
         const id = req.params.id;
         try {
             const app = await News.findById(id);
@@ -25,17 +25,16 @@ module.exports = class API {
 
 
 // Versions
-   // Find Version
+    // Find Version
     static async findVersion(req, res){
-    const id = req.params.id;
-    const versionID = req.params.versionID;
-    try {
-        const data = await News.find({"_id": id},{versions: {$elemMatch: {_id: versionID}}});
-        res.status(200).json(data);
-    } catch (err) {
-        res.status(404).json(data);
+        const id = req.params.id;
+        try {
+            const data = await News.find({"_id":id});
+            res.status(200).json(data);
+        } catch (err) {
+            res.status(404).json(data);
+        }
     }
-}
     // Create Version
     static async createVersion(req, res){
         const id = req.params.id;
@@ -49,10 +48,10 @@ module.exports = class API {
     }
     // Update Version
     static async updateVersion(req, res){
-        const id = req.params.id;
+        const versionID = req.params.versionID;
         const { version } = req.body;
         try {
-            const data = await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version }});
+            const data = await News.updateOne({ "versions.version": versionID }, { $set: { "versions.$.version": version }});
             res.status(200).json(data);
         } catch (err) {
             res.status(404).json({ message: err.message });
