@@ -28,15 +28,18 @@ module.exports = class API {
     // Find Version
     static async findVersion(req, res){
         const id = req.params.id;
-        const versionID = req.params.versionID;
+        const { version } = req.body;
         try {
-            const version = await News.find({"id":id,"versions._id":versionID});
-            
-                res.status(200).json(version);
-            
+            const data = await News.findOne({ "_id": id, "versions.version": version });
+            if(data){
+                res.status(200).json(data);
+            }else{
+                
+                res.json({message: "Don't Exists"});
+            }
             
         } catch (err) {
-            res.status(404).json(data);
+            res.status(404).json({message: err.message});
         }
     }
     // Create Version
@@ -44,8 +47,13 @@ module.exports = class API {
         const id = req.params.id;
         const { version } = req.body;
         try {
-            const data = await News.findOneAndUpdate({ "_id": id }, { $push: { versions: { version: version }}});
-            res.status(200).json(data);
+            const data = await News.findOne({ "_id":id, "versions.version": version });
+            if(data){
+                res.json({ message: "This version already exists"});
+            }else{
+                await News.findOneAndUpdate({ "_id": id }, { $push: { versions: { version: version }}});
+                res.status(200).json({ message: "Version created successfully"});
+            }
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -55,8 +63,14 @@ module.exports = class API {
         const id = req.params.id;
         const { version } = req.body;
         try {
-            await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version }});
-            res.status(200).json({message: "Version updated successfully"});
+            const data = await News.findOne({ "versions._id":id, "versions.version": version });
+            if(data){
+                res.json({ message: "This version already exists"});
+            }else{
+                await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version }});
+                res.status(200).json({message: "Version updated successfully"});
+            }
+            
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -65,8 +79,8 @@ module.exports = class API {
     static async deleteVersion(req, res){
         const id = req.params.id;
         try {
-            const data = await News.updateOne({ "versions._id": id }, { $pull: { versions: { "_id":id }}}, { new: true });
-            res.status(200).json(data);
+            await News.updateOne({ "versions._id": id }, { $pull: { versions: { "_id": id }}}, { new: true });
+            res.status(200).json({ message: "Version deleted successfully" });
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -79,10 +93,10 @@ module.exports = class API {
     // Update current status app
     static async updateCurrentStatus(req, res){
         const id = req.params.id;
-        const { status } = req.body;
+        const status = req.body;
         try {
-            const app = await News.findByIdAndUpdate(id, status);
-            res.status(200).json(app);
+            await News.findByIdAndUpdate(id, status);
+            res.status(200).json({ message: "Status updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -90,10 +104,10 @@ module.exports = class API {
     // Update current version app
     static async updateCurrentVersion(req, res){
         const id = req.params.id;
-        const { version } = req.body;
+        const version = req.body;
         try {
-            const app = await News.findByIdAndUpdate(id, version);
-            res.status(200).json(app);
+            await News.findByIdAndUpdate(id, version);
+            res.status(200).json({ message: "Version updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -103,24 +117,13 @@ module.exports = class API {
 
 
 // News
-    // Find News
-    static async findNews(req, res){
-        const id = req.params.id;
-        const NewsID = req.params.NewsID
-        try {
-            const data = await News.find({"_id": id},{news: {$elemMatch: {_id: NewsID}}});
-            res.status(200).json(data);
-        } catch (err) {
-            res.status(404).json(data);
-        }
-    }
     // Create News
     static async createNews(req, res){
         const id = req.params.id;
         const { version, title, description, URL, URLtoMedia, roles, publishedAt } = req.body;
         try {
-            const data = await News.findOneAndUpdate({ "_id": id }, { $push: { news: { version: version, title: title, description: description, URL: URL, URLtoMedia: URLtoMedia, roles:[roles], publishedAt: publishedAt }}});
-            res.status(200).json(data);
+            await News.findOneAndUpdate({ "_id": id }, { $push: { news: { version: version, title: title, description: description, URL: URL, URLtoMedia: URLtoMedia, roles:roles, publishedAt: publishedAt }}});
+            res.status(200).json({ message: "News created successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -130,8 +133,8 @@ module.exports = class API {
         const id = req.params.id;
         const { version, title, description, URL, URLtoMedia, roles, publishedAt } = req.body;
         try {
-            const data = await News.updateOne({ "news._id": id }, { $inc: { "news.$.version": version, "news.$.title": title, "news.$.description": description, "news.$.URL": URL, "news.$.URLtoMedia": URLtoMedia, "news.$.roles": [roles], "news.$.publishedAt": publishedAt }});
-            res.status(200).json(data);
+            await News.updateOne({ "news._id": id }, { $set: { "news.$.version": version, "news.$.title": title, "news.$.description": description, "news.$.URL": URL, "news.$.URLtoMedia": URLtoMedia, "news.$.roles": roles, "news.$.publishedAt": publishedAt }});
+            res.status(200).json({ message: "News updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -140,8 +143,8 @@ module.exports = class API {
     static async deleteNews(req, res){
         const id = req.params.id;
         try {
-            const data = await News.updateOne({ "news._id": id }, { $pull: { news: { "_id":id }}}, { new: true });
-            res.status(200).json(data);
+            await News.updateOne({ "news._id": id }, { $pull: { news: { "_id":id }}}, { new: true });
+            res.status(200).json({ message: "News deleted successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }

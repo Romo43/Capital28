@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const newsSchema = mongoose.Schema(
     {
         app: String,
-        currentVersion:{
-            version: Number,
-            status: Boolean
-        },
+        currentVersion: Number,
+        status: Boolean,
         versions:[{
             version: {
-                type: Number, unique: true
+                type: Number
             }
         }],
         news:[{

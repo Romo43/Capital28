@@ -7,17 +7,16 @@ router.get('/apps', API.allApps);
 router.get('/app/:id', API.findApp);
 
 // Versions
-router.get('/version/:id:/:versionID', API.findVersion);
+router.get('/version/:id', API.findVersion);
 router.put('/version/create/:id', API.createVersion);
 router.put('/version/update/:id', API.updateVersion);
 router.put('/version/delete/:id', API.deleteVersion);
 
 // Current Version
-router.put('/current-version/update/:id', API.updateCurrentStatus);
-router.put('/current-version/update/:id', API.updateCurrentVersion);
+router.put('/CV-status/update/:id', API.updateCurrentStatus);
+router.put('/CV-version/update/:id', API.updateCurrentVersion);
 
 // News
-router.get('/news/:id', API.findNews);
 router.put('/news/create/:id', API.createNews);
 router.put('/news/update/:id', API.updateNews);
 router.put('/news/delete/:id', API.deleteNews);
