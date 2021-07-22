@@ -28,9 +28,13 @@ module.exports = class API {
     // Find Version
     static async findVersion(req, res){
         const id = req.params.id;
+        const versionID = req.params.versionID;
         try {
-            const data = await News.find({"_id":id});
-            res.status(200).json(data);
+            const version = await News.find({"id":id,"versions._id":versionID});
+            
+                res.status(200).json(version);
+            
+            
         } catch (err) {
             res.status(404).json(data);
         }
@@ -48,11 +52,11 @@ module.exports = class API {
     }
     // Update Version
     static async updateVersion(req, res){
-        const versionID = req.params.versionID;
+        const id = req.params.id;
         const { version } = req.body;
         try {
-            const data = await News.updateOne({ "versions.version": versionID }, { $set: { "versions.$.version": version }});
-            res.status(200).json(data);
+            await News.updateOne({ "versions._id": id }, { $set: { "versions.$.version": version }});
+            res.status(200).json({message: "Version updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
         }
@@ -126,7 +130,7 @@ module.exports = class API {
         const id = req.params.id;
         const { version, title, description, URL, URLtoMedia, roles, publishedAt } = req.body;
         try {
-            const data = await News.updateOne({ "news._id": id }, { $set: { "news.$.version": version, "news.$.title": title, "news.$.description": description, "news.$.URL": URL, "news.$.URLtoMedia": URLtoMedia, "news.$.roles": [roles], "news.$.publishedAt": publishedAt }});
+            const data = await News.updateOne({ "news._id": id }, { $inc: { "news.$.version": version, "news.$.title": title, "news.$.description": description, "news.$.URL": URL, "news.$.URLtoMedia": URLtoMedia, "news.$.roles": [roles], "news.$.publishedAt": publishedAt }});
             res.status(200).json(data);
         } catch (err) {
             res.status(404).json({ message: err.message });

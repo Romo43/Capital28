@@ -7,9 +7,9 @@ router.get('/apps', API.allApps);
 router.get('/app/:id', API.findApp);
 
 // Versions
-router.get('/version/:id', API.findVersion);
+router.get('/version/:id:/:versionID', API.findVersion);
 router.put('/version/create/:id', API.createVersion);
-router.put('/version/update/:version', API.updateVersion);
+router.put('/version/update/:id', API.updateVersion);
 router.put('/version/delete/:id', API.deleteVersion);
 
 // Current Version

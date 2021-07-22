@@ -7,7 +7,6 @@ const newsSchema = mongoose.Schema(
             status: Boolean
         },
         versions:[{
-            _id: false,
             version: {
                 type: Number, unique: true
             }
