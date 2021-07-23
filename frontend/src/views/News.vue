@@ -2,14 +2,14 @@
     <v-container>
         <h1>{{News.currentVersion}}</h1>
   <v-row>
-    <v-col sm="4" class="pa-3" v-for="apps in News" :key="apps._id">
+    <v-col sm="4" class="pa-3" >
       <v-card class="pa-1">
         <v-img height="250"></v-img> 
           <v-btn class="ml-4 mt-3" small outlined color="indigo">
-            {{ apps.title }}
+            {{ News.currentVersion }}
           </v-btn>
           <v-card-title class="headline">
-            {{apps.description}}
+            {{News.news}}
           </v-card-title>  
               <v-card-text class="py-8">
                 <!-- {{News.publishedAt}}             -->
@@ -31,6 +31,9 @@ import API from '../api';
     async created(){
       this.News = await API.findApp(this.$route.params.id);
       this.News = response;
+      for (const property in News) {
+      console.log(`${property}: ${object[property]}`);
+      }
     }
   }
 </script>
