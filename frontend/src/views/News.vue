@@ -1,15 +1,15 @@
 <template>
     <v-container>
         <h1>{{News.currentVersion}}</h1>
-  <v-row>
-    <v-col sm="4" class="pa-3" >
-      <v-card class="pa-1">
+  <v-row v-if="News.news != null">
+    <v-col sm="4" class="pa-3" v-for="(value,index) in News.news" :key="value" >
+      <v-card class="pa-1" :key="index">
         <v-img height="250"></v-img> 
-          <v-btn class="ml-4 mt-3" small outlined color="indigo">
-            {{ News.currentVersion }}
+          <v-btn class="ml-4 mt-3" small outlined color="indigo" >
+            {{ value.roles }}
           </v-btn>
           <v-card-title class="headline">
-            {{News.news}}
+           {{ value.description }}
           </v-card-title>  
               <v-card-text class="py-8">
                 <!-- {{News.publishedAt}}             -->
@@ -27,6 +27,7 @@ import API from '../api';
       return{
       News:[],
       };
+      
     },
     async created(){
       this.News = await API.findApp(this.$route.params.id);
