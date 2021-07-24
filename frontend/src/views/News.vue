@@ -6,7 +6,7 @@
       <v-card class="pa-1" :key="index">
         <v-img height="250"></v-img> 
           <v-btn class="ml-4 mt-3" small outlined color="indigo" >
-            {{ value.roles }}
+            {{ value.title }}
           </v-btn>
           <v-card-title class="headline">
            {{ value.description }}
