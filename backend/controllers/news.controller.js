@@ -25,23 +25,6 @@ module.exports = class API {
 
 
 // Versions
-    // Find Version
-    static async findVersion(req, res){
-        const id = req.params.id;
-        const { version } = req.body;
-        try {
-            const data = await News.findOne({ "_id": id, "versions.version": version });
-            if(data){
-                res.status(200).json(data);
-            }else{
-                
-                res.json({message: "Don't Exists"});
-            }
-            
-        } catch (err) {
-            res.status(404).json({message: err.message});
-        }
-    }
     // Create Version
     static async createVersion(req, res){
         const id = req.params.id;
