@@ -22,7 +22,7 @@ mongoose.connect(process.env.DB_URI, {
 
 // Routes
 app.use("/Capital28/News",require('./routes/news.route'));
-//app.use("Capital28/users",require('./routes/users.route'));
+app.use("Capital28/users",require('./routes/users.route'));
 
 // Start Server
 app.listen(port, () => console.log(`Server on port:${port}`));
