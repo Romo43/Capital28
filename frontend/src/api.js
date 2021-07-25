@@ -18,7 +18,7 @@ export default class API{
     //Versions
 
         //para insertar una noticia en la BD
-        static async createVersion(post){
+        static async createNews(post){
             const res = await axios.post(url, post);
             return res.data;
         }   

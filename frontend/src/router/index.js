@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import News from '../views/News.vue'
+import AddNew from '../views/AddNew.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/News/:id',
     name: 'News',
     component: News
+  },
+  {
+    path: '/Addnew',
+    name: 'AddNew',
+    component: AddNew
   },
   {
     path: '/about',
