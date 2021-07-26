@@ -9,7 +9,7 @@ const newsSchema = mongoose.Schema(
         version: Number,
         title: String,
         description: String,
-        URLtoMedia: String,
+        media: String,
         publishedAt: Date
     }
 );

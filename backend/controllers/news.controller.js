@@ -1,4 +1,5 @@
 const News = require('../models/News');
+const fs = require('fs');
 module.exports = class API {
 // Apps
     //  All News
@@ -22,9 +23,11 @@ module.exports = class API {
     }
     //  Create News
     static async createNews(req, res){
-        const post = req.body;
+        const data = req.body;
+        const imagename = req.file.filename;
+        data.media = imagename;
         try {
-            await News.create(post);
+            await News.create(data);
             res.status(201).json({ message: "News created successfully"});
         } catch (err) {
             res.status(400).json({ message: err.message });
@@ -33,9 +36,21 @@ module.exports = class API {
     //  Update News
     static async updateNews(req, res){
         const id = req.params.id;
-        const { app, version, title, description, URLtoMedia, publishedAt} = req.body;
+        let new_media = "";
+        if(req.file){
+            new_media = req.file.filename;
+            try {
+                fs.unlinkSync("./uploads/" + req.body.old_media);
+            } catch (err) {
+                console.log(err)
+            }
+        }else{
+            new_media = req.body.old_media;
+        }
+        const data = req.body;
+        data.media = new_media;
         try {
-            await News.findByIdAndUpdate(id, { app, version, title, description, URLtoMedia, publishedAt });
+            await News.findByIdAndUpdate(id, data);
             res.status(200).json({ message: "News updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
@@ -44,9 +59,9 @@ module.exports = class API {
     //  Update Status
     static async updateStatus(req, res){
         const id = req.params.id;
-        const { status } = req.body;
+        const status = req.body;
         try {
-            await News.findByIdAndUpdate(id, {status: status});
+            await News.findByIdAndUpdate(id, status);
             res.status(200).json({ message: "Status updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
@@ -56,7 +71,14 @@ module.exports = class API {
     static async deleteNews(req, res){
         const id = req.params.id;
         try {
-            await News.findByIdAndDelete(id);
+            const data = await News.findByIdAndDelete(id);
+            if(data.media != ''){
+                try {
+                    fs.unlinkSync('./uploads'+data.media);
+                } catch (err) {
+                    console.log(err)
+                }
+            }
             res.status(200).json({ message: "News deleted successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });
