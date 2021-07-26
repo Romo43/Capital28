@@ -9,7 +9,7 @@
       <v-col
         sm="4"
         class="pa-3"
-        v-for="news in News"
+        v-for="news in News" 
         :key="news._id"
       >
         <v-card class="pa-1" :to="{ name: 'news', params: {id: news._id}}">

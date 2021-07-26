@@ -20,7 +20,7 @@ export default class API{
             return res.data;
         }   
         //para actualizar una version en la BD
-        static async updateNews(news){
+        static async updateNews(id, news){
             const res = await axios.patch(`${url}/${id}`, news);
             return res.data;
         }
@@ -30,7 +30,7 @@ export default class API{
             return res.data;
         }
         //para eliminar una version
-        static async deleteNews(){
+        static async deleteNews(id){
             const res = await axios.delete(`${url}/${id}`);
             return res.data;
         }

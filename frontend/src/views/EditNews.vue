@@ -37,20 +37,19 @@
               prepend-icon="mdi-note"
               :rules="rules"
             ></v-text-field>
-
-            <v-text-field
-              label="URLToMedia"
-              v-model="news.URLtoMedia"
-              prepend-icon="mdi-note"
-              :rules="rules"
-            ></v-text-field>
             <v-text-field
               label="publishedAt"
               v-model="news.publishedAt"
               prepend-icon="mdi-note"
               :rules="rules"
             ></v-text-field>
-            <v-img :src="`/${news.URLToMedia}`" width="120"></v-img>
+             <v-file-input
+            @change="selectFile"
+            show-size
+            counter
+            multiple
+            label="Select image"></v-file-input>
+            <v-img :src="`/${news.media}`" width="120"></v-img>
 
             <v-btn type="submit" class="mt-3" dark color="success">Update new</v-btn>
           </v-form>
@@ -70,10 +69,10 @@ export default {
         title: '',
         version: 0,
         description: '',
-        URLtoMedia: '',
+        media: '',
         publishedAt: '',
       },
-      URLtoMedia: '',
+      media: '',
     };
   },
   async created(){
@@ -81,20 +80,21 @@ export default {
       this.news = response;
   },
   methods: {
-    async updatetForm() {
+    selectFile(file){
+      this.media = file[0];
+    },
+    async updateForm() {
       const formData = new FormData();
       formData.append("title", this.news.title);
       formData.append("app", this.news.app);
-      formData.append("URLtoMedia", this.URLtoMedia);
+      formData.append("media", this.media);
       formData.append("version", this.news.version);
       formData.append("description", this.news.description);
       formData.append("publishedAt", this.news.publishedAt);
-      formData.append("old_image", this.news.URLtoMedia);
+      formData.append("old_media", this.news.media);
+
       if (this.$refs.form.validate()) {
         const response = await API.updateNews(this.$route.params.id, formData);
-        for (var pair of formData.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
         this.$router.push({name: "Home", params: { message: response.message } })
       }
     },

@@ -19,8 +19,8 @@ const routes = [
     component: News
   },
   {
-    path: '/EditNews/:id',
-    name: 'EditNews',
+    path: '/edit-news/:id',
+    name: 'edit-news',
     component: EditNews
   },
   {
