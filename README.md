@@ -20,12 +20,10 @@ Project is created with:
 ### Backend
 * node.js: 14.15.4
 * express: ^4.17.1
-* express-session: ^1.17.1
 * mongoose: ^5.12.10
 * cors: ^2.8.5
 * dotenv: ^10.0.0
-* passport: ^0.4.1
-* passport-local: ^1.0.0
+* multer: ^1.4.2
 * nodemon: ^2.0.7
 
 ### Frontend
@@ -38,6 +36,7 @@ To run this project, install it locally using npm:
 ### Backend
 ```
 $ cd backend
+$ npm install
 $ npm run dev
 ```
 
@@ -45,8 +44,36 @@ $ npm run dev
 
 ```
 $ cd frontend
+$ npm install
 $ npm run serve
 ```
+
+### Use
+
+<p align="center">
+	<h1 align="center">Home</h1>
+  <a href="https://github.com/Romo43/Capital28.github.io">
+    <img src="https://res.cloudinary.com/duytv65yt/image/upload/v1627319307/home_ek4nmm.png" alt="Logo">
+  </a>
+</p>
+<p align="center">
+<h1 align="center">Save news</h1>
+  <a href="https://github.com/Romo43/Capital28.github.io">
+    <img src="https://res.cloudinary.com/duytv65yt/image/upload/v1627319315/save_r4bxty.png" alt="Logo">
+  </a>
+</p>
+<p align="center">
+	<h1 align="center">Home updated</h1>
+  <a href="https://github.com/Romo43/Capital28.github.io">
+    <img src="https://res.cloudinary.com/duytv65yt/image/upload/v1627319290/saved_pjky3o.png" alt="Logo">
+  </a>
+</p>
+<p align="center">
+	<h1 align="center">News selected</h1>
+  <a href="https://github.com/Romo43/Capital28.github.io">
+    <img src="https://res.cloudinary.com/duytv65yt/image/upload/v1627319276/news_ifnu4a.png" alt="Logo">
+  </a>
+</p>
 
 ## Authors
 * Luis Fernando Lopez Romo - Backend - [Fernando Romo](https://github.com/Romo43)
