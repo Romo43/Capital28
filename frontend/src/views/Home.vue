@@ -13,7 +13,7 @@
         :key="news._id"
       >
         <v-card class="pa-1" :to="{ name: 'news', params: {id: news._id}}">
-          <v-img height="200" :src="`${news.URLtoMedia}`"></v-img>
+          <v-img height="200" :src="`/${news.media}`"></v-img>
           <v-col sm="12" class="d-flex justify-end">
            
             <v-btn class="ml-4 mt3" small outlined color="indigo">{{news.app}}</v-btn>

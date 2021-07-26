@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <v-col sm="10" class="pa-4 mx_auto">
         <v-card class="pa-2">
-          <v-img :src="`${news.URLtoMedia}`"></v-img>
+          <v-img :src="`/${news.media}`"></v-img>
           <v-card-actions class="pb_0">
             <v-row class="mt-1 mx-1">
               <v-col sm="2">
