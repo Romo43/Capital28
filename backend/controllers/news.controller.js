@@ -1,7 +1,7 @@
 const News = require('../models/News');
 const fs = require('fs');
 module.exports = class API {
-// Apps
+// News
     //  All News
     static async allNews(req, res){
         try {
@@ -56,17 +56,6 @@ module.exports = class API {
             res.status(404).json({ message: err.message });
         }
     }
-    //  Update Status
-    static async updateStatus(req, res){
-        const id = req.params.id;
-        const status = req.body;
-        try {
-            await News.findByIdAndUpdate(id, status);
-            res.status(200).json({ message: "Status updated successfully"});
-        } catch (err) {
-            res.status(404).json({ message: err.message });
-        }
-    }
     //  Delete News
     static async deleteNews(req, res){
         const id = req.params.id;
@@ -74,7 +63,7 @@ module.exports = class API {
             const data = await News.findByIdAndDelete(id);
             if(data.media != ''){
                 try {
-                    fs.unlinkSync('./uploads'+data.media);
+                    fs.unlinkSync('./uploads/'+data.media);
                 } catch (err) {
                     console.log(err)
                 }

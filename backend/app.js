@@ -17,13 +17,14 @@ app.use(express.static("uploads"));
 mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useCreateIndex: true
 }).then(() => console.log('Connected to the database')).catch(err => console.log(err));
 
 // Routes
 app.use("/Capital28/News",require('./routes/news.route'));
-app.use("Capital28/users",require('./routes/users.route'));
+// Optional
+// app.use("Capital28/users",require('./routes/users.route'));
 
 // Start Server
 app.listen(port, () => console.log(`Server on port:${port}`));

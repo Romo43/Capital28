@@ -21,7 +21,6 @@ router.get('/', API.allNews);
 router.get('/:id', API.findNews);
 router.post('/', upload, API.createNews);
 router.patch('/:id', upload, API.updateNews);
-router.patch('/status/:id', upload, API.updateStatus);
 router.delete('/:id', API.deleteNews);
 
 module.exports = router;
