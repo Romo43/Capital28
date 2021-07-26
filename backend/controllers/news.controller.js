@@ -22,21 +22,20 @@ module.exports = class API {
     }
     //  Create News
     static async createNews(req, res){
-        const { app, version, title, description, URLtoMedia, publishedAt, roles} = req.body;
+        const post = req.body;
         try {
-            const data = new News({ app, version, title, description, URLtoMedia, publishedAt, roles});
-            await News.create(data);
-            res.status(200).json({ message: "News created successfully"});
+            await News.create(post);
+            res.status(201).json({ message: "News created successfully"});
         } catch (err) {
-            res.status(404).json({ message: err.message });
+            res.status(400).json({ message: err.message });
         }
     }
     //  Update News
     static async updateNews(req, res){
         const id = req.params.id;
-        const { app, version, title, description, URLtoMedia, publishedAt, roles } = req.body;
+        const { app, version, title, description, URLtoMedia, publishedAt} = req.body;
         try {
-            await News.findByIdAndUpdate(id, { app, version, title, description, URLtoMedia, publishedAt, roles });
+            await News.findByIdAndUpdate(id, { app, version, title, description, URLtoMedia, publishedAt });
             res.status(200).json({ message: "News updated successfully"});
         } catch (err) {
             res.status(404).json({ message: err.message });

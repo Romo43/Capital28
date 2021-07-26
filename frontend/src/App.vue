@@ -55,8 +55,8 @@
     data: () => ({ 
       drawer: null,
       items: [
-        { title: 'Noticias', icon: 'mdi-newspaper-variant-multiple', link: "/add-new" },
-        { title: 'Usuarios', icon: 'mdi-account-multiple', link: "/users" },
+        { title: 'Add News', icon: 'mdi-plus-circle', link: "/AddNew" },
+        { title: 'Users', icon: 'mdi-account-multiple', link: "/users" },
       ],
       }),
   }

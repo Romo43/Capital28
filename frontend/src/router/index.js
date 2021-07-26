@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import News from '../views/News.vue'
 import AddNew from '../views/AddNew.vue'
+import EditNews from '../views/EditNews.vue'
 
 Vue.use(VueRouter)
 
@@ -13,9 +14,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/News/:id',
-    name: 'News',
+    path: '/news/:id',
+    name: 'news',
     component: News
+  },
+  {
+    path: '/EditNews/:id',
+    name: 'EditNews',
+    component: EditNews
   },
   {
     path: '/Addnew',

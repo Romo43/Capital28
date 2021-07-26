@@ -3,11 +3,11 @@ const router = express.Router();
 const API = require('../controllers/news.controller');
 
 // News
-router.get('/news', API.allNews);
-router.get('/news/:id', API.findNews);
-router.post('/news/create', API.createNews);
-router.put('/news/update/:id', API.updateNews);
-router.put('/news/update-status/:id', API.updateStatus);
-router.delete('/news/delete/:id', API.deleteNews);
+router.get('/', API.allNews);
+router.get('/:id', API.findNews);
+router.post('/' , API.createNews);
+router.put('/:id', API.updateNews);
+router.put('/status/:id', API.updateStatus);
+router.delete('/:id', API.deleteNews);
 
 module.exports = router;

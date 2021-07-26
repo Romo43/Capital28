@@ -1,54 +1,44 @@
  <template>
   <v-container>
-    <v-alert border="left" close-text="Close Alert" color="gren accent-4" dark dismissable v-if="this.$route.params.message">
-      {{this.$route.params.message}}
-    </v-alert>
-    <v-row>
-      <h1>{{ News.currentVersion }}</h1>
-    </v-row>
-    <v-row v-if="News.news != null">
-      <v-col
-        sm="4"
-        class="pa-3"
-        v-for="(value, index) in News.news"
-        :key="value"
-      >
-        <v-card class="pa-1" :key="index">
-          <v-img height="200" :src="`/${News.URLtoMedia}`"></v-img>
-          <v-col sm="12" class="d-flex justify-end">
-            <v-btn class="mx-2" fab dark small color="blue">
-              <v-icon dark> mdi-pencil </v-icon>
-            </v-btn>
-            <v-btn class="mx-2" fab dark small color="red">
-              <v-icon dark> mdi-delete </v-icon>
-            </v-btn>
-          </v-col>
-          <v-card-title class="headline">
-            {{ value.title }}
-          </v-card-title>
-          <v-card-text class="py-8">
-            {{ value.description.substring(0, 100) + "..." }}</v-card-text
-          >
+    <v-row no-gutters>
+      <v-col sm="10" class="pa-4 mx_auto">
+        <v-card class="pa-2">
+          <v-img :src="`${news.URLtoMedia}`"></v-img>
+          <v-card-actions class="pb_0">
+            <v-row class="mt-1 mx-1">
+              <v-col sm="2">
+                <v-btn small outlined color="primary">{{news.app}}</v-btn>
+              </v-col>
+              <v-col sm="10" class="d-flex justify-end">
+                <v-btn color="success" text :to="{name: 'EditNews', params:{ id: news._id}}">Edit</v-btn>
+                <v-btn color="red" text @click="removeNews(news._id)">Delete</v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+          <v-card-subtitle class="headline"><h3>{{news.title}}</h3></v-card-subtitle>
+          <v-card-text class="grey--text"><p>{{news.description}}</p><p>{{news.publishedAt}}</p></v-card-text>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import API from "../api";
+import API from '../api'
 export default {
-  name: "Home",
-  data() {
-    return {
-      News: [],
+  data(){
+    return{
+      news:[],
     };
   },
-  async created() {
-    this.News = await API.findApp(this.$route.params.id);
-    this.News = response;
-    for (const property in News) {
-      console.log(`${property}: ${object[property]}`);
-    }
+  async created(){
+    const response = await API.findNews(this.$route.params.id);
+    this.news = response;
   },
-};
-</script> 
+  methods:{
+    async removeNews(id){
+      const response = await API.deleteNews(id);
+      this.$router.push({name: 'Home', params:{ message: response.message}});
+    }
+  }
+}
+</script>
