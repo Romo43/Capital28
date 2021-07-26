@@ -9,6 +9,7 @@
 * [General info](#general-information)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Use](#use)
 * [Authors](#authors)
 
 ## General information
